@@ -23,6 +23,8 @@ if [[ ! -f "/opt/ros/humble/setup.bash" ]]; then
   exit 1
 fi
 
+# ROS setup scripts can reference unset vars internally; disable nounset while sourcing.
+set +u
 source /opt/ros/humble/setup.bash
 if [[ -f "$ROOT_DIR/install/setup.bash" ]]; then
   source "$ROOT_DIR/install/setup.bash"
@@ -31,6 +33,7 @@ else
   echo "Run: colcon build && source install/setup.bash"
   exit 1
 fi
+set -u
 
 export ROS_LOG_DIR="${ROS_LOG_DIR:-$ROOT_DIR/.ros_logs}"
 mkdir -p "$ROS_LOG_DIR"

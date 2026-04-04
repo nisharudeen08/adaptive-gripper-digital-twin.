@@ -1,0 +1,10 @@
+# Runtime artifacts
+.digital_twin_pids
+.ngrok.log
+.phase1.log
+.rosbridge.log
+.ros_logs/
+
+# Python cache
+__pycache__/
+*.py[cod]
