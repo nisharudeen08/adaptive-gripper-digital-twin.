@@ -1,0 +1,53 @@
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/launch/__pycache__/display.launch.cpython-310.pyc
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/launch/__pycache__/gazebo.launch.cpython-310.pyc
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/launch/__pycache__/sim_control.launch.cpython-310.pyc
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/launch/display.launch.py
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/launch/gazebo.launch.py
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/launch/sim_control.launch.py
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/Robotic.gazebo
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/Robotic.trans
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/Robotic.xacro
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/adaptive_gripper_arm.urdf
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/materials.xacro
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/robotic_arm.urdf
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/config/controllers.yaml
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor Micro 9g.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1 (3).stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1_1 (2).stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1_1_1 (1).stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1_1_1_1.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1_1__1__1.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1__1__1 (1).stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1__1__1_1.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1__2__1.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Servo Motor MG996R.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Servo Motor Micro  9g.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/arm_complete.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/base_link.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/forearm_link.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/gear1_r1.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/gear2_r1.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/grip link 1_r1.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/gripper_assembly.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/gripper_base.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/gripper_link.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/shoulder_link.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/upper_arm_link.stl
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/wrist_link.stl
+/home/nisharu/ros2_ws/install/robotic_description/lib/robotic_description/arm_mover.py
+/home/nisharu/ros2_ws/install/robotic_description/lib/robotic_description/gripper_mover.py
+/home/nisharu/ros2_ws/install/robotic_description/share/ament_index/resource_index/package_run_dependencies/robotic_description
+/home/nisharu/ros2_ws/install/robotic_description/share/ament_index/resource_index/parent_prefix_path/robotic_description
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/environment/ament_prefix_path.sh
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/environment/ament_prefix_path.dsv
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/environment/path.sh
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/environment/path.dsv
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/local_setup.bash
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/local_setup.sh
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/local_setup.zsh
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/local_setup.dsv
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/package.dsv
+/home/nisharu/ros2_ws/install/robotic_description/share/ament_index/resource_index/packages/robotic_description
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/cmake/robotic_descriptionConfig.cmake
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/cmake/robotic_descriptionConfig-version.cmake
+/home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/package.xml

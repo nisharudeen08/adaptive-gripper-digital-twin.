@@ -1,0 +1,188 @@
+# =============================================================================
+# FILE: src/robotic_description/config/controllers.yaml
+# PURPOSE: ros2_control controller configuration for the adaptive_gripper_arm
+#
+# This file is loaded by the gazebo_ros2_control plugin (via <parameters> tag
+# in the URDF's <gazebo> block). It tells the controller_manager:
+#   1. Which controllers exist and what type they are
+#   2. What joints, interfaces, gains, and tolerances each controller uses
+#
+# IMPORTANT: YAML indentation must use SPACES, never tabs.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# CONTROLLER MANAGER — the ROS2 node that owns all controllers
+# -----------------------------------------------------------------------------
+controller_manager:
+  ros__parameters:
+    # update_rate: How many times per second the control loop runs (Hz).
+    # Rule of thumb: 100 Hz for typical arms. Higher = smoother but more CPU.
+    # Must match or exceed the Gazebo physics step rate (default: 1000 Hz ODE).
+    # 100 Hz means one control cycle every 10 ms — sufficient for position control.
+    update_rate: 100
+
+    # use_sim_time: Subscribe to /clock published by Gazebo rather than wall-clock.
+    # Without this, controllers will drift out of sync with simulation time.
+    use_sim_time: true
+
+    # ---- Register controllers by name. The name here (e.g. "joint_state_broadcaster")
+    # ---- must match the top-level key used below AND the name passed to "spawner".
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    gripper_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+# -----------------------------------------------------------------------------
+# JOINT STATE BROADCASTER — reads all joint states and publishes /joint_states
+# This MUST be activated FIRST. Other controllers depend on joint state feedback.
+# -----------------------------------------------------------------------------
+joint_state_broadcaster:
+  ros__parameters:
+    use_sim_time: true
+    # publish_rate: How often /joint_states is published (Hz).
+    # Set equal to update_rate so you get one publish per control cycle.
+    publish_rate: 100.0
+
+# -----------------------------------------------------------------------------
+# ARM CONTROLLER — JointTrajectoryController for shoulder, elbow, wrist
+# Accepts trajectory goals and drives joints to commanded positions via PID.
+# -----------------------------------------------------------------------------
+arm_controller:
+  ros__parameters:
+    use_sim_time: true
+
+    # joints: The exact joint names as they appear in the URDF <joint> tags.
+    # These must match the names inside <ros2_control><joint name="..."> in your URDF.
+    joints:
+      - shoulder_joint
+      - elbow_joint
+      - wrist_joint
+
+    # command_interfaces: What the controller writes TO the hardware interface.
+    # "position" means the controller outputs a desired joint angle (radians).
+    # For simulation this is ideal — the physics engine handles dynamics.
+    command_interfaces:
+      - position
+
+    # state_interfaces: What the controller reads FROM the hardware interface.
+    # "position" = current angle ; "velocity" = current angular velocity (rad/s).
+    # Reading velocity allows the PID derivative term (d-gain) to work properly.
+    state_interfaces:
+      - position
+      - velocity
+
+    # state_publish_rate: How fast the controller publishes its internal state
+    # to /arm_controller/state. Used for debugging and monitoring.
+    state_publish_rate: 100.0
+
+    # action_monitor_rate: How often (Hz) the Action Server checks whether the
+    # goal is still within tolerance. 20 Hz is fine — goals don't change rapidly.
+    action_monitor_rate: 20.0
+
+    # allow_partial_joints_goal: If false, every trajectory goal MUST include
+    # ALL joints in the "joints" list above. Setting false prevents silent errors
+    # where you forget to include a joint and it stays at an unintended position.
+    allow_partial_joints_goal: false
+
+    # open_loop_control: If true, the controller does NOT read joint state feedback —
+    # it just integrates the command. Set false so the PID loop actively corrects
+    # any position error (closed-loop = accurate).
+    open_loop_control: false
+
+    # ---- TRAJECTORY TOLERANCES ------------------------------------------------
+    # These define when a trajectory goal is considered "failed" or "succeeded".
+    constraints:
+      # goal_time: The controller will declare failure if the arm hasn't reached
+      # goal position within this many seconds AFTER the trajectory's last point
+      # time_from_start. Give it 1.0s of slack for simulation settling.
+      goal_time: 1.0
+
+      # stopped_velocity_tolerance: When checking if a joint "stopped" at goal,
+      # velocity must be below this threshold (rad/s). 0.02 rad/s is very slow.
+      stopped_velocity_tolerance: 0.02
+
+      # Per-joint tolerances at the goal position and during trajectory execution.
+      # trajectory: Max allowed position error (rad) while following the path.
+      # goal: Max allowed position error (rad) when the endpoint is reached.
+      # Tighter goal tolerance = more accurate final position, but may timeout.
+      shoulder_joint:
+        trajectory: 0.10
+        goal: 0.05
+      elbow_joint:
+        trajectory: 0.10
+        goal: 0.05
+      wrist_joint:
+        trajectory: 0.10
+        goal: 0.05
+
+    # ---- PID GAINS -----------------------------------------------------------
+    # These are the classical PID gains for EACH joint's position controller.
+    #
+    # p (Proportional): Main "push" toward target. Too high → oscillation.
+    # i (Integral):     Eliminates steady-state error over time. Too high → windup.
+    # d (Derivative):   Damping — resists rapid change. Too high → noise amplified.
+    # i_clamp:          Max absolute value the integral term can accumulate.
+    #                   Prevents integrator windup if the arm is blocked.
+    #
+    # These values are tuned for the masses and inertias in your URDF.
+    # Shoulder carries the most load → highest p/d gains.
+    # Wrist is lightest → reduced gains.
+    gains:
+      shoulder_joint:
+        p: 120.0
+        i: 1.0
+        d: 8.0
+        i_clamp: 1.0
+      elbow_joint:
+        p: 100.0
+        i: 0.8
+        d: 6.0
+        i_clamp: 1.0
+      wrist_joint:
+        p: 80.0
+        i: 0.5
+        d: 4.0
+        i_clamp: 0.5
+
+# -----------------------------------------------------------------------------
+# GRIPPER CONTROLLER — JointTrajectoryController for finger_left_joint only
+# finger_right_joint uses <mimic> in the URDF so it follows automatically.
+# We only command the LEFT finger; the right mirrors it via physics mimic.
+# -----------------------------------------------------------------------------
+gripper_controller:
+  ros__parameters:
+    use_sim_time: true
+
+    joints:
+      - finger_left_joint   # Only command the left finger directly
+
+    command_interfaces:
+      - position
+
+    state_interfaces:
+      - position
+      - velocity
+
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0
+    allow_partial_joints_goal: false
+    open_loop_control: false
+
+    constraints:
+      goal_time: 2.0           # Gripper may move slowly — give extra time
+      stopped_velocity_tolerance: 0.05
+
+      finger_left_joint:
+        trajectory: 0.15
+        goal: 0.08
+
+    gains:
+      finger_left_joint:
+        p: 50.0
+        i: 0.3
+        d: 2.0
+        i_clamp: 0.5

@@ -1,0 +1,72 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    arm_position_controller:
+      type: position_controllers/JointGroupPositionController
+
+arm_position_controller:
+  ros__parameters:
+    joints:
+      - shoulder_joint
+      - elbow_joint
+      - wrist_joint
+      - finger_left_joint
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+
+joint_limits:
+  shoulder_joint:
+    has_position_limits: true
+    min_position: -1.5708
+    max_position: 1.5708
+    has_velocity_limits: true
+    max_velocity: 1.50
+    has_effort_limits: true
+    max_effort: 4.00
+    pid:
+      p: 18.0
+      i: 0.20
+      d: 0.90
+  elbow_joint:
+    has_position_limits: true
+    min_position: -1.5708
+    max_position: 1.5708
+    has_velocity_limits: true
+    max_velocity: 1.50
+    has_effort_limits: true
+    max_effort: 3.00
+    pid:
+      p: 16.0
+      i: 0.15
+      d: 0.80
+  wrist_joint:
+    has_position_limits: true
+    min_position: -1.5708
+    max_position: 1.5708
+    has_velocity_limits: true
+    max_velocity: 2.00
+    has_effort_limits: true
+    max_effort: 2.00
+    pid:
+      p: 12.0
+      i: 0.10
+      d: 0.55
+  finger_left_joint:
+    has_position_limits: true
+    min_position: 0.0
+    max_position: 1.5708
+    has_velocity_limits: true
+    max_velocity: 2.00
+    has_effort_limits: true
+    max_effort: 1.50
+    pid:
+      p: 8.0
+      i: 0.05
+      d: 0.30

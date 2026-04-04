@@ -1,0 +1,407 @@
+<?xml version="1.0"?>
+<robot name="adaptive_gripper_arm">
+  <!--
+    Mesh preparation assumptions:
+    1. Every STL is exported in meters, so the mesh scale is 1 1 1.
+    2. Every STL origin is placed at that link's parent joint axis before export.
+    3. Inertias below are box estimates from nominal link envelopes and should be updated
+       after the final split meshes are available.
+  -->
+
+  <material name="mat_base">
+    <color rgba="0.18 0.18 0.20 1.0"/>
+  </material>
+  <material name="mat_blue">
+    <color rgba="0.20 0.45 0.75 1.0"/>
+  </material>
+  <material name="mat_orange">
+    <color rgba="0.85 0.48 0.16 1.0"/>
+  </material>
+  <material name="mat_silver">
+    <color rgba="0.72 0.72 0.74 1.0"/>
+  </material>
+  <material name="mat_gripper">
+    <color rgba="0.16 0.58 0.50 1.0"/>
+  </material>
+
+  <!-- World anchor keeps the tabletop base fixed in simulation. -->
+  <link name="world"/>
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0.025" rpy="0 0 0"/>
+      <mass value="0.80"/>
+      <inertia ixx="0.0011267" ixy="0.0" ixz="0.0" iyy="0.0011267" iyz="0.0" izz="0.0019200"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/visual/base.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="mat_base"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/collision/base.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="shoulder_link">
+    <inertial>
+      <origin xyz="0 0 0.035" rpy="0 0 0"/>
+      <mass value="0.25"/>
+      <inertia ixx="0.0001771" ixy="0.0" ixz="0.0" iyy="0.0001771" iyz="0.0" izz="0.0001500"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/visual/shoulder.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="mat_blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/collision/shoulder.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="upper_arm_link">
+    <inertial>
+      <origin xyz="0 0 0.09" rpy="0 0 0"/>
+      <mass value="0.22"/>
+      <inertia ixx="0.0000587" ixy="0.0" ixz="0.0" iyy="0.0006233" iyz="0.0" izz="0.0006233"/>
+    </inertial>
+    <!-- Visual: mesh rotated from X to Z so upper arm stands vertical -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/visual/upper_arm.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="mat_silver"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/collision/upper_arm.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="elbow_link">
+    <inertial>
+      <origin xyz="0 0 0.025" rpy="0 0 0"/>
+      <mass value="0.18"/>
+      <inertia ixx="0.0000750" ixy="0.0" ixz="0.0" iyy="0.0000750" iyz="0.0" izz="0.0000750"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/visual/elbow.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="mat_orange"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/collision/elbow.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="forearm_link">
+    <inertial>
+      <origin xyz="0 0 0.07" rpy="0 0 0"/>
+      <mass value="0.18"/>
+      <inertia ixx="0.0000368" ixy="0.0" ixz="0.0" iyy="0.0004024" iyz="0.0" izz="0.0004024"/>
+    </inertial>
+    <!-- Visual: mesh rotated from X to Z so forearm stands vertical -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/visual/forearm.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="mat_silver"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/collision/forearm.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="wrist_link">
+    <inertial>
+      <origin xyz="0.0 0 0.0225" rpy="0 0 0"/>
+      <mass value="0.12"/>
+      <inertia ixx="0.0000405" ixy="0.0" ixz="0.0" iyy="0.0000405" iyz="0.0" izz="0.0000405"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/visual/wrist.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="mat_blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/collision/wrist.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="gripper_base_link">
+    <inertial>
+      <origin xyz="0.03 0 0" rpy="0 0 0"/>
+      <mass value="0.10"/>
+      <inertia ixx="0.0000185" ixy="0.0" ixz="0.0" iyy="0.0000352" iyz="0.0" izz="0.0000433"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/visual/gripper_base.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="mat_gripper"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/collision/gripper_base.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="finger_left_link">
+    <inertial>
+      <origin xyz="0.035 0 0" rpy="0 0 0"/>
+      <mass value="0.03"/>
+      <inertia ixx="0.0000012" ixy="0.0" ixz="0.0" iyy="0.0000131" iyz="0.0" izz="0.0000126"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/visual/finger_left.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="mat_orange"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/collision/finger_left.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="finger_right_link">
+    <inertial>
+      <origin xyz="0.035 0 0" rpy="0 0 0"/>
+      <mass value="0.03"/>
+      <inertia ixx="0.0000012" ixy="0.0" ixz="0.0" iyy="0.0000131" iyz="0.0" izz="0.0000126"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/visual/finger_right.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="mat_orange"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://adaptive_gripper_description/meshes/collision/finger_right.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="world_to_base" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- CH0: shoulder yaw around vertical Z axis. -->
+  <joint name="shoulder_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="shoulder_link"/>
+    <!-- Shoulder pivot sits on top face of base_link (base height = 0.04 m). -->
+    <origin xyz="0 0 0.04" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.5708" upper="1.5708" effort="4.0" velocity="1.5"/>
+    <dynamics damping="0.2" friction="0.08"/>
+  </joint>
+
+  <joint name="shoulder_to_upper_arm" type="fixed">
+    <parent link="shoulder_link"/>
+    <child link="upper_arm_link"/>
+    <!-- Upper arm root is at the top of shoulder cylinder (shoulder length = 0.06 m). -->
+    <origin xyz="0 0 0.06" rpy="0 0 0"/>
+  </joint>
+
+  <!-- CH1: elbow pitch around local Y axis. -->
+  <joint name="elbow_joint" type="revolute">
+    <parent link="upper_arm_link"/>
+    <child link="elbow_link"/>
+    <!-- Elbow pivot is at the top end of upper_arm_link (upper arm length = 0.18 m, along Z). -->
+    <origin xyz="0 0 0.18" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.5708" upper="1.5708" effort="3.0" velocity="1.5"/>
+    <dynamics damping="0.18" friction="0.06"/>
+  </joint>
+
+  <joint name="elbow_to_forearm" type="fixed">
+    <parent link="elbow_link"/>
+    <child link="forearm_link"/>
+    <!-- Forearm root is at the top of elbow cylinder (elbow length = 0.05 m). -->
+    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+  </joint>
+
+  <!-- CH2: wrist pitch around local Y axis. -->
+  <joint name="wrist_joint" type="revolute">
+    <parent link="forearm_link"/>
+    <child link="wrist_link"/>
+    <!-- Wrist pivot is at the top end of forearm_link (forearm length = 0.14 m, along Z). -->
+    <origin xyz="0 0 0.14" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.5708" upper="1.5708" effort="2.0" velocity="2.0"/>
+    <dynamics damping="0.12" friction="0.04"/>
+  </joint>
+
+  <joint name="wrist_to_gripper_base" type="fixed">
+    <parent link="wrist_link"/>
+    <child link="gripper_base_link"/>
+    <!-- Gripper base extends forward (+X) from wrist center, palm faces forward. -->
+    <origin xyz="0.06 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- CH3: left finger is commanded, right finger mirrors it. -->
+  <joint name="finger_left_joint" type="revolute">
+    <parent link="gripper_base_link"/>
+    <child link="finger_left_link"/>
+    <!-- Left finger hinge is at front of gripper base, offset +Y for left jaw. -->
+    <origin xyz="0.04 0.015 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="0.0" upper="1.5708" effort="1.5" velocity="2.0"/>
+    <dynamics damping="0.08" friction="0.03"/>
+  </joint>
+
+  <joint name="finger_right_joint" type="revolute">
+    <parent link="gripper_base_link"/>
+    <child link="finger_right_link"/>
+    <!-- Right finger hinge is at front of gripper base, offset -Y for right jaw. -->
+    <origin xyz="0.04 -0.015 0" rpy="0 0 0"/>
+    <axis xyz="0 0 -1"/>
+    <limit lower="-1.5708" upper="0.0" effort="1.5" velocity="2.0"/>
+    <mimic joint="finger_left_joint" multiplier="1.0" offset="0.0"/>
+    <dynamics damping="0.08" friction="0.03"/>
+  </joint>
+
+  <!-- ros2_control for Gazebo Sim (Fortress/Harmonic). -->
+  <ros2_control name="GazeboSimSystem" type="system">
+    <hardware>
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+
+    <joint name="shoulder_joint">
+      <command_interface name="position">
+        <param name="min">-1.5708</param>
+        <param name="max">1.5708</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="elbow_joint">
+      <command_interface name="position">
+        <param name="min">-1.5708</param>
+        <param name="max">1.5708</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="wrist_joint">
+      <command_interface name="position">
+        <param name="min">-1.5708</param>
+        <param name="max">1.5708</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="finger_left_joint">
+      <command_interface name="position">
+        <param name="min">0.0</param>
+        <param name="max">1.5708</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="finger_right_joint">
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+
+  <gazebo>
+    <!-- Fortress/Harmonic uses gz_ros2_control; replace with gazebo_ros2_control only for Gazebo Classic. -->
+    <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin"/>
+  </gazebo>
+
+  <gazebo reference="base_link">
+    <material>Gazebo/DarkGrey</material>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+    <kp>100000.0</kp>
+    <kd>100.0</kd>
+  </gazebo>
+  <gazebo reference="shoulder_link">
+    <material>Gazebo/Blue</material>
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <kp>60000.0</kp>
+    <kd>80.0</kd>
+  </gazebo>
+  <gazebo reference="upper_arm_link">
+    <material>Gazebo/Grey</material>
+    <mu1>0.7</mu1>
+    <mu2>0.7</mu2>
+    <kp>50000.0</kp>
+    <kd>70.0</kd>
+  </gazebo>
+  <gazebo reference="elbow_link">
+    <material>Gazebo/Orange</material>
+    <mu1>0.7</mu1>
+    <mu2>0.7</mu2>
+    <kp>50000.0</kp>
+    <kd>70.0</kd>
+  </gazebo>
+  <gazebo reference="forearm_link">
+    <material>Gazebo/Grey</material>
+    <mu1>0.7</mu1>
+    <mu2>0.7</mu2>
+    <kp>50000.0</kp>
+    <kd>70.0</kd>
+  </gazebo>
+  <gazebo reference="wrist_link">
+    <material>Gazebo/Blue</material>
+    <mu1>0.6</mu1>
+    <mu2>0.6</mu2>
+    <kp>40000.0</kp>
+    <kd>60.0</kd>
+  </gazebo>
+  <gazebo reference="gripper_base_link">
+    <material>Gazebo/Green</material>
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    <kp>45000.0</kp>
+    <kd>65.0</kd>
+  </gazebo>
+  <gazebo reference="finger_left_link">
+    <material>Gazebo/Orange</material>
+    <mu1>1.2</mu1>
+    <mu2>1.2</mu2>
+    <kp>35000.0</kp>
+    <kd>55.0</kd>
+  </gazebo>
+  <gazebo reference="finger_right_link">
+    <material>Gazebo/Orange</material>
+    <mu1>1.2</mu1>
+    <mu2>1.2</mu2>
+    <kp>35000.0</kp>
+    <kd>55.0</kd>
+  </gazebo>
+</robot>

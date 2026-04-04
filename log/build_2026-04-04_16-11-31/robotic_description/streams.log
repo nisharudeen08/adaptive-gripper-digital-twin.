@@ -1,0 +1,65 @@
+[0.007s] Invoking command in '/home/nisharu/ros2_ws/build/robotic_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/nisharu/ros2_ws/src/robotic_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/nisharu/ros2_ws/install/robotic_description
+[0.017s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.095s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.143s] -- Configuring done
+[0.145s] -- Generating done
+[0.146s] -- Build files have been written to: /home/nisharu/ros2_ws/build/robotic_description
+[0.148s] Invoked command in '/home/nisharu/ros2_ws/build/robotic_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/nisharu/ros2_ws/src/robotic_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/nisharu/ros2_ws/install/robotic_description
+[0.150s] Invoking command in '/home/nisharu/ros2_ws/build/robotic_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/nisharu/ros2_ws/build/robotic_description -- -j12 -l12
+[0.181s] Invoked command in '/home/nisharu/ros2_ws/build/robotic_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/nisharu/ros2_ws/build/robotic_description -- -j12 -l12
+[0.189s] Invoking command in '/home/nisharu/ros2_ws/build/robotic_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/nisharu/ros2_ws/build/robotic_description
+[0.195s] -- Install configuration: "Release"
+[0.195s] -- Execute custom install script
+[0.195s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/launch/__pycache__/display.launch.cpython-310.pyc
+[0.204s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/launch/__pycache__/gazebo.launch.cpython-310.pyc
+[0.212s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/launch/__pycache__/sim_control.launch.cpython-310.pyc
+[0.222s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/launch/display.launch.py
+[0.230s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/launch/gazebo.launch.py
+[0.237s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/launch/sim_control.launch.py
+[0.245s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/Robotic.gazebo
+[0.252s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/Robotic.trans
+[0.260s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/Robotic.xacro
+[0.267s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/adaptive_gripper_arm.urdf
+[0.275s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/materials.xacro
+[0.284s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/robotic_arm.urdf
+[0.291s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/config/controllers.yaml
+[0.299s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor Micro 9g.stl
+[0.307s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1 (3).stl
+[0.316s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1_1 (2).stl
+[0.325s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1_1_1 (1).stl
+[0.334s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1_1_1_1.stl
+[0.342s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1_1__1__1.stl
+[0.350s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1__1__1 (1).stl
+[0.358s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1__1__1_1.stl
+[0.366s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1__2__1.stl
+[0.374s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Servo Motor MG996R.stl
+[0.383s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Servo Motor Micro  9g.stl
+[0.391s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/arm_complete.stl
+[0.399s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/base_link.stl
+[0.406s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/forearm_link.stl
+[0.415s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/gear1_r1.stl
+[0.424s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/gear2_r1.stl
+[0.431s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/grip link 1_r1.stl
+[0.439s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/gripper_assembly.stl
+[0.448s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/gripper_base.stl
+[0.456s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/gripper_link.stl
+[0.464s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/shoulder_link.stl
+[0.472s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/upper_arm_link.stl
+[0.480s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/wrist_link.stl
+[0.489s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/lib/robotic_description/arm_mover.py
+[0.497s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/ament_index/resource_index/package_run_dependencies/robotic_description
+[0.505s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/ament_index/resource_index/parent_prefix_path/robotic_description
+[0.513s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/environment/ament_prefix_path.sh
+[0.523s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/environment/ament_prefix_path.dsv
+[0.531s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/environment/path.sh
+[0.539s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/environment/path.dsv
+[0.547s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/local_setup.bash
+[0.555s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/local_setup.sh
+[0.563s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/local_setup.zsh
+[0.571s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/local_setup.dsv
+[0.580s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/package.dsv
+[0.588s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/ament_index/resource_index/packages/robotic_description
+[0.595s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/cmake/robotic_descriptionConfig.cmake
+[0.603s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/cmake/robotic_descriptionConfig-version.cmake
+[0.611s] -- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/package.xml
+[0.622s] Invoked command in '/home/nisharu/ros2_ws/build/robotic_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/nisharu/ros2_ws/build/robotic_description

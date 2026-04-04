@@ -1,0 +1,1 @@
+/home/nisharu/ros2_ws/build/robotic_description/ament_cmake_core/robotic_descriptionConfig-version.cmake

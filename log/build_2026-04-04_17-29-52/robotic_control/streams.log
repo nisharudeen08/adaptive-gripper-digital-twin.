@@ -1,0 +1,66 @@
+[0.465s] Invoking command in '/home/nisharu/ros2_ws/src/robotic_control': PYTHONPATH=/home/nisharu/ros2_ws/build/robotic_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/robotic_control build --build-base /home/nisharu/ros2_ws/build/robotic_control/build install --record /home/nisharu/ros2_ws/build/robotic_control/install.log --single-version-externally-managed install_data
+[0.605s] running egg_info
+[0.606s] creating ../../build/robotic_control/robotic_control.egg-info
+[0.606s] writing ../../build/robotic_control/robotic_control.egg-info/PKG-INFO
+[0.606s] writing dependency_links to ../../build/robotic_control/robotic_control.egg-info/dependency_links.txt
+[0.606s] writing entry points to ../../build/robotic_control/robotic_control.egg-info/entry_points.txt
+[0.606s] writing requirements to ../../build/robotic_control/robotic_control.egg-info/requires.txt
+[0.606s] writing top-level names to ../../build/robotic_control/robotic_control.egg-info/top_level.txt
+[0.606s] writing manifest file '../../build/robotic_control/robotic_control.egg-info/SOURCES.txt'
+[0.608s] reading manifest file '../../build/robotic_control/robotic_control.egg-info/SOURCES.txt'
+[0.609s] writing manifest file '../../build/robotic_control/robotic_control.egg-info/SOURCES.txt'
+[0.609s] running build
+[0.609s] running build_py
+[0.609s] creating /home/nisharu/ros2_ws/build/robotic_control/build
+[0.609s] creating /home/nisharu/ros2_ws/build/robotic_control/build/lib
+[0.609s] creating /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+[0.609s] copying scripts/gripper_monitor.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+[0.609s] copying scripts/fake_sensor_publisher.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+[0.610s] copying scripts/__init__.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+[0.610s] copying scripts/adaptive_grip_controller.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+[0.610s] copying scripts/fsr_gazebo_sync.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+[0.610s] copying scripts/fsr_serial_bridge.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+[0.610s] copying scripts/gazebo_contact_bridge.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+[0.610s] copying scripts/data_exporter.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+[0.610s] running install
+[0.610s] running install_lib
+[0.611s] creating /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+[0.611s] copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/gripper_monitor.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+[0.611s] copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/fake_sensor_publisher.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+[0.611s] copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/__init__.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+[0.612s] copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/adaptive_grip_controller.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+[0.612s] copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/fsr_gazebo_sync.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+[0.612s] copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/fsr_serial_bridge.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+[0.612s] copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/gazebo_contact_bridge.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+[0.612s] copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/data_exporter.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+[0.612s] byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/gripper_monitor.py to gripper_monitor.cpython-310.pyc
+[0.613s] byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/fake_sensor_publisher.py to fake_sensor_publisher.cpython-310.pyc
+[0.614s] byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/__init__.py to __init__.cpython-310.pyc
+[0.614s] byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/adaptive_grip_controller.py to adaptive_grip_controller.cpython-310.pyc
+[0.615s] byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/fsr_gazebo_sync.py to fsr_gazebo_sync.cpython-310.pyc
+[0.616s] byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/fsr_serial_bridge.py to fsr_serial_bridge.cpython-310.pyc
+[0.617s] byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/gazebo_contact_bridge.py to gazebo_contact_bridge.cpython-310.pyc
+[0.617s] byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/data_exporter.py to data_exporter.cpython-310.pyc
+[0.617s] running install_data
+[0.618s] creating /home/nisharu/ros2_ws/install/robotic_control/share/ament_index
+[0.618s] creating /home/nisharu/ros2_ws/install/robotic_control/share/ament_index/resource_index
+[0.618s] creating /home/nisharu/ros2_ws/install/robotic_control/share/ament_index/resource_index/packages
+[0.618s] copying resource/robotic_control -> /home/nisharu/ros2_ws/install/robotic_control/share/ament_index/resource_index/packages
+[0.618s] copying package.xml -> /home/nisharu/ros2_ws/install/robotic_control/share/robotic_control
+[0.618s] creating /home/nisharu/ros2_ws/install/robotic_control/share/robotic_control/launch
+[0.618s] copying launch/phase2_hardware.launch.py -> /home/nisharu/ros2_ws/install/robotic_control/share/robotic_control/launch
+[0.618s] copying launch/phase1_simulation.launch.py -> /home/nisharu/ros2_ws/install/robotic_control/share/robotic_control/launch
+[0.618s] creating /home/nisharu/ros2_ws/install/robotic_control/share/robotic_control/config
+[0.618s] copying config/gripper_params.yaml -> /home/nisharu/ros2_ws/install/robotic_control/share/robotic_control/config
+[0.618s] running install_egg_info
+[0.620s] Copying ../../build/robotic_control/robotic_control.egg-info to /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/robotic_control-0.0.0-py3.10.egg-info
+[0.621s] running install_scripts
+[0.635s] Installing adaptive_grip_controller script to /home/nisharu/ros2_ws/install/robotic_control/bin
+[0.635s] Installing data_exporter script to /home/nisharu/ros2_ws/install/robotic_control/bin
+[0.635s] Installing fake_sensor_publisher script to /home/nisharu/ros2_ws/install/robotic_control/bin
+[0.635s] Installing fsr_gazebo_sync script to /home/nisharu/ros2_ws/install/robotic_control/bin
+[0.635s] Installing fsr_serial_bridge script to /home/nisharu/ros2_ws/install/robotic_control/bin
+[0.635s] Installing gazebo_contact_bridge script to /home/nisharu/ros2_ws/install/robotic_control/bin
+[0.635s] Installing gripper_monitor script to /home/nisharu/ros2_ws/install/robotic_control/bin
+[0.635s] writing list of installed files to '/home/nisharu/ros2_ws/build/robotic_control/install.log'
+[0.653s] Invoked command in '/home/nisharu/ros2_ws/src/robotic_control' returned '0': PYTHONPATH=/home/nisharu/ros2_ws/build/robotic_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/robotic_control build --build-base /home/nisharu/ros2_ws/build/robotic_control/build install --record /home/nisharu/ros2_ws/build/robotic_control/install.log --single-version-externally-managed install_data

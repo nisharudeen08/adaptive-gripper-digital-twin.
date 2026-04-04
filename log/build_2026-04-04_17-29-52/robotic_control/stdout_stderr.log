@@ -1,0 +1,64 @@
+running egg_info
+creating ../../build/robotic_control/robotic_control.egg-info
+writing ../../build/robotic_control/robotic_control.egg-info/PKG-INFO
+writing dependency_links to ../../build/robotic_control/robotic_control.egg-info/dependency_links.txt
+writing entry points to ../../build/robotic_control/robotic_control.egg-info/entry_points.txt
+writing requirements to ../../build/robotic_control/robotic_control.egg-info/requires.txt
+writing top-level names to ../../build/robotic_control/robotic_control.egg-info/top_level.txt
+writing manifest file '../../build/robotic_control/robotic_control.egg-info/SOURCES.txt'
+reading manifest file '../../build/robotic_control/robotic_control.egg-info/SOURCES.txt'
+writing manifest file '../../build/robotic_control/robotic_control.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/nisharu/ros2_ws/build/robotic_control/build
+creating /home/nisharu/ros2_ws/build/robotic_control/build/lib
+creating /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+copying scripts/gripper_monitor.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+copying scripts/fake_sensor_publisher.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+copying scripts/__init__.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+copying scripts/adaptive_grip_controller.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+copying scripts/fsr_gazebo_sync.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+copying scripts/fsr_serial_bridge.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+copying scripts/gazebo_contact_bridge.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+copying scripts/data_exporter.py -> /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts
+running install
+running install_lib
+creating /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/gripper_monitor.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/fake_sensor_publisher.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/__init__.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/adaptive_grip_controller.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/fsr_gazebo_sync.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/fsr_serial_bridge.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/gazebo_contact_bridge.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+copying /home/nisharu/ros2_ws/build/robotic_control/build/lib/scripts/data_exporter.py -> /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts
+byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/gripper_monitor.py to gripper_monitor.cpython-310.pyc
+byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/fake_sensor_publisher.py to fake_sensor_publisher.cpython-310.pyc
+byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/adaptive_grip_controller.py to adaptive_grip_controller.cpython-310.pyc
+byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/fsr_gazebo_sync.py to fsr_gazebo_sync.cpython-310.pyc
+byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/fsr_serial_bridge.py to fsr_serial_bridge.cpython-310.pyc
+byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/gazebo_contact_bridge.py to gazebo_contact_bridge.cpython-310.pyc
+byte-compiling /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/scripts/data_exporter.py to data_exporter.cpython-310.pyc
+running install_data
+creating /home/nisharu/ros2_ws/install/robotic_control/share/ament_index
+creating /home/nisharu/ros2_ws/install/robotic_control/share/ament_index/resource_index
+creating /home/nisharu/ros2_ws/install/robotic_control/share/ament_index/resource_index/packages
+copying resource/robotic_control -> /home/nisharu/ros2_ws/install/robotic_control/share/ament_index/resource_index/packages
+copying package.xml -> /home/nisharu/ros2_ws/install/robotic_control/share/robotic_control
+creating /home/nisharu/ros2_ws/install/robotic_control/share/robotic_control/launch
+copying launch/phase2_hardware.launch.py -> /home/nisharu/ros2_ws/install/robotic_control/share/robotic_control/launch
+copying launch/phase1_simulation.launch.py -> /home/nisharu/ros2_ws/install/robotic_control/share/robotic_control/launch
+creating /home/nisharu/ros2_ws/install/robotic_control/share/robotic_control/config
+copying config/gripper_params.yaml -> /home/nisharu/ros2_ws/install/robotic_control/share/robotic_control/config
+running install_egg_info
+Copying ../../build/robotic_control/robotic_control.egg-info to /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/robotic_control-0.0.0-py3.10.egg-info
+running install_scripts
+Installing adaptive_grip_controller script to /home/nisharu/ros2_ws/install/robotic_control/bin
+Installing data_exporter script to /home/nisharu/ros2_ws/install/robotic_control/bin
+Installing fake_sensor_publisher script to /home/nisharu/ros2_ws/install/robotic_control/bin
+Installing fsr_gazebo_sync script to /home/nisharu/ros2_ws/install/robotic_control/bin
+Installing fsr_serial_bridge script to /home/nisharu/ros2_ws/install/robotic_control/bin
+Installing gazebo_contact_bridge script to /home/nisharu/ros2_ws/install/robotic_control/bin
+Installing gripper_monitor script to /home/nisharu/ros2_ws/install/robotic_control/bin
+writing list of installed files to '/home/nisharu/ros2_ws/build/robotic_control/install.log'

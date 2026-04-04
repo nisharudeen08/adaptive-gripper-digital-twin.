@@ -1,0 +1,27 @@
+running egg_info
+writing ../../build/robotic_control/robotic_control.egg-info/PKG-INFO
+writing dependency_links to ../../build/robotic_control/robotic_control.egg-info/dependency_links.txt
+writing entry points to ../../build/robotic_control/robotic_control.egg-info/entry_points.txt
+writing requirements to ../../build/robotic_control/robotic_control.egg-info/requires.txt
+writing top-level names to ../../build/robotic_control/robotic_control.egg-info/top_level.txt
+reading manifest file '../../build/robotic_control/robotic_control.egg-info/SOURCES.txt'
+writing manifest file '../../build/robotic_control/robotic_control.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+running install_data
+copying package.xml -> /home/nisharu/ros2_ws/install/robotic_control/share/robotic_control
+copying launch/rosbridge_websocket.launch.py -> /home/nisharu/ros2_ws/install/robotic_control/share/robotic_control/launch
+running install_egg_info
+removing '/home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/robotic_control-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../build/robotic_control/robotic_control.egg-info to /home/nisharu/ros2_ws/install/robotic_control/lib/python3.10/site-packages/robotic_control-0.0.0-py3.10.egg-info
+running install_scripts
+Installing adaptive_grip_controller script to /home/nisharu/ros2_ws/install/robotic_control/lib/robotic_control
+Installing data_exporter script to /home/nisharu/ros2_ws/install/robotic_control/lib/robotic_control
+Installing fake_sensor_publisher script to /home/nisharu/ros2_ws/install/robotic_control/lib/robotic_control
+Installing fsr_gazebo_sync script to /home/nisharu/ros2_ws/install/robotic_control/lib/robotic_control
+Installing fsr_serial_bridge script to /home/nisharu/ros2_ws/install/robotic_control/lib/robotic_control
+Installing gazebo_contact_bridge script to /home/nisharu/ros2_ws/install/robotic_control/lib/robotic_control
+Installing gripper_monitor script to /home/nisharu/ros2_ws/install/robotic_control/lib/robotic_control
+writing list of installed files to '/home/nisharu/ros2_ws/build/robotic_control/install.log'

@@ -1,0 +1,51 @@
+-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/nisharu/ros2_ws/build/robotic_description
+-- Install configuration: ""
+-- Execute custom install script
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/launch/display.launch.py
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/launch/gazebo.launch.py
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/Robotic.gazebo
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/Robotic.trans
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/Robotic.xacro
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/materials.xacro
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/urdf/robotic_arm.urdf
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Gripper 1_r1.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Gripper Assembly_r1.f3d .stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Gripper base_r1.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor Micro 9g.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1 (3).stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1_1 (2).stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1_1_1 (1).stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1_1_1_1.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1_1__1__1.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1__1__1 (1).stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1__1__1_1.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Motor_Micro_9g_1__2__1.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Servo Motor MG996R.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/Servo Motor Micro  9g.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/base_link (1).stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/forearm_link.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/gear1_r1.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/gear2_r1.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/grip link 1_r1.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/shoulder_link.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/upper_arm_link.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/meshes/wrist_link.stl
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/ament_index/resource_index/package_run_dependencies/robotic_description
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/ament_index/resource_index/parent_prefix_path/robotic_description
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/environment/ament_prefix_path.sh
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/environment/ament_prefix_path.dsv
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/environment/path.sh
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/environment/path.dsv
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/local_setup.bash
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/local_setup.sh
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/local_setup.zsh
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/local_setup.dsv
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/package.dsv
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/ament_index/resource_index/packages/robotic_description
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/cmake/robotic_descriptionConfig.cmake
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/cmake/robotic_descriptionConfig-version.cmake
+-- Symlinking: /home/nisharu/ros2_ws/install/robotic_description/share/robotic_description/package.xml

@@ -1,0 +1,9 @@
+[console_scripts]
+adaptive_grip_controller = scripts.adaptive_grip_controller:main
+data_exporter = scripts.data_exporter:main
+fake_sensor_publisher = scripts.fake_sensor_publisher:main
+fsr_gazebo_sync = scripts.fsr_gazebo_sync:main
+fsr_serial_bridge = scripts.fsr_serial_bridge:main
+gazebo_contact_bridge = scripts.gazebo_contact_bridge:main
+gripper_monitor = scripts.gripper_monitor:main
+

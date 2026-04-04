@@ -1,0 +1,40 @@
+/**: # Applies to all nodes
+  ros__parameters:
+    use_sim_time: true
+
+fake_sensor_publisher:
+  ros__parameters:
+    sim_mode: "realistic"    # Modes: ramp, step, noise, overforce, realistic
+    publish_rate_hz: 100.0   # Frequency of dummy data publishing
+    noise_std_fsr: 0.05      # Standard dev of Gaussian noise added to FSR
+    noise_std_servo: 0.01    # Standard dev of Gaussian noise added to servo
+    force_max: 5.0           # [N] Maximum force in ramp mode
+    cycle_duration: 8.0      # [s] duration of one realistic grip cycle
+
+adaptive_grip_controller:
+  ros__parameters:
+    target_force: 2.0        # [N] Target gripping force to maintain
+    force_deadband: 0.1      # [N] Minimum force to consider contact
+    kp: 0.05                 # PID Proportional gain
+    ki: 0.001                # PID Integral gain
+    kd: 0.01                 # PID Derivative gain
+    max_integral: 0.5        # Anti-windup clamp for I term
+    deriv_filter_alpha: 0.2  # Low-pass filter weight for noisy FSR jumps
+    max_grip_pos: 1.57       # [rad] Hard limit: fully closed
+    min_grip_pos: 0.0        # [rad] Hard limit: fully open
+    control_rate_hz: 50.0    # Frequency of PID evaluation and traj publish
+    joint_names: ["gripper_joint"]
+
+fsr_gazebo_sync:
+  ros__parameters:
+    lp_filter_alpha: 0.3     # Low pass filter for raw gazebo physics contacts
+    warn_threshold_N: 0.5    # [N] Difference to throw a simulated warning
+    error_threshold_N: 2.0   # [N] Difference where twin diverges entirely
+    gazebo_timeout_sec: 2.0  # Seconds before marking Gazebo as disconnected
+
+fsr_serial_bridge:
+  ros__parameters:
+    serial_port: "/dev/ttyUSB0"
+    baud_rate: 115200
+    timeout_sec: 2.0
+    reconnect_attempts: 3

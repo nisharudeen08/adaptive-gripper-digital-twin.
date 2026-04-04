@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gazebo)",
+      "Bash(source *)",
+      "Bash(ros2 *)",
+      "Bash(colcon *)",
+      "Bash(check_urdf *)",
+      "Bash(dpkg *)",
+      "Bash(find *)",
+      "Bash(sleep *)",
+      "Bash(timeout *)",
+      "Bash(pkill *)",
+      "Bash(kill *)",
+      "Bash(killall *)",
+      "Bash(cat *)",
+      "Bash(gzserver *)",
+      "Bash(xargs *)",
+      "Bash(ps *)",
+      "Bash(grep *)",
+      "Bash(rm *)",
+      "Bash(ls *)",
+      "Bash(python3 *)"
+    ]
+  },
+  "$version": 3
+}
