@@ -5,6 +5,11 @@
 .rosbridge.log
 .ros_logs/
 
+# ROS2 workspace outputs (generated)
+build/
+install/
+log/
+
 # Python cache
 __pycache__/
 *.py[cod]
