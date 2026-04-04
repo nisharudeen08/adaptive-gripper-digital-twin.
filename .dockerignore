@@ -1,0 +1,17 @@
+.git
+.gitignore
+
+# Local build outputs / logs (large; not needed for image build)
+build/
+install/
+log/
+.ros_logs/
+*.log
+.digital_twin_pids
+
+# Editor / OS noise
+.vscode/
+.idea/
+**/__pycache__/
+**/*.py[cod]
+
