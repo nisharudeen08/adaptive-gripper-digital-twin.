@@ -1,122 +1,241 @@
 #!/usr/bin/env python3
+"""
+fake_sensor_publisher.py
+Publishes fake sensor data for ALL joints:
+  - FSR force (gripper only)
+  - finger_left_joint position (FSR linked)
+  - shoulder_joint, elbow_joint, wrist_joint
+    (user will control via rqt in real use,
+     but here we simulate slow movements
+     so Gazebo and Unity show full arm motion)
+"""
+
+import math
+import random
+import time
+
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Float32
 from sensor_msgs.msg import JointState
-from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSDurabilityPolicy
-import random
-import math
+from std_msgs.msg import Float32, String
+
 
 class FakeSensorPublisher(Node):
+
     def __init__(self):
-        super().__init__('fake_sensor_publisher')
-        
+        super().__init__("fake_sensor_publisher")
+
         # Parameters
-        self.declare_parameter('sim_mode', 'realistic')
-        self.declare_parameter('publish_rate_hz', 100.0)
-        self.declare_parameter('noise_std_fsr', 0.05)
-        self.declare_parameter('noise_std_servo', 0.01)
-        self.declare_parameter('force_max', 5.0)
-        self.declare_parameter('cycle_duration', 8.0)
-        
-        self.sim_mode = self.get_parameter('sim_mode').value
-        self.rate = self.get_parameter('publish_rate_hz').value
-        self.noise_fsr = self.get_parameter('noise_std_fsr').value
-        self.noise_servo = self.get_parameter('noise_std_servo').value
-        self.force_max = self.get_parameter('force_max').value
-        self.cycle_dur = self.get_parameter('cycle_duration').value
-        
-        # QoS setup for sensor data
-        qos_profile = QoSProfile(
-            reliability=QoSReliabilityPolicy.BEST_EFFORT,
-            durability=QoSDurabilityPolicy.VOLATILE,
-            depth=10
-        )
-        
+        self.declare_parameter("sim_mode", "step")
+        self.declare_parameter("publish_rate_hz", 100.0)
+        self.declare_parameter("noise_std_fsr", 0.05)
+        self.declare_parameter("force_max", 5.0)
+
+        self.sim_mode = self.get_parameter("sim_mode").get_parameter_value().string_value
+        rate = self.get_parameter("publish_rate_hz").get_parameter_value().double_value
+
         # Publishers
-        self.force_pub = self.create_publisher(Float32, '/gripper/fsr/force', qos_profile)
-        self.pos_pub = self.create_publisher(JointState, '/gripper/servo/position', qos_profile)
-        
-        # Timer
-        self.timer = self.create_timer(1.0/self.rate, self.timer_cb)
-        self.time_start = self.get_clock().now().nanoseconds / 1e9
-        
-        # Mode dictionary mapping strings to handler functions
-        self.modes = {
-            'ramp': self.mode_ramp,
-            'step': self.mode_step,
-            'noise': self.mode_noise,
-            'overforce': self.mode_overforce,
-            'realistic': self.mode_realistic
-        }
-        
-        self.get_logger().info(f"Started Fake Sensor Publisher. Mode: [{self.sim_mode}]")
-        self.last_mode = self.sim_mode
+        self.fsr_pub = self.create_publisher(Float32, "/gripper/fsr/force", 10)
+        self.servo_pub = self.create_publisher(JointState, "/gripper/servo/position", 10)
+        self.joint_pub = self.create_publisher(JointState, "/joint_states_fake", 10)
+        self.hw_pub = self.create_publisher(String, "/gripper/hardware/status", 10)
+        self.state_pub = self.create_publisher(String, "/gripper/grip_state", 10)
 
-    def timer_cb(self):
-        # Handle param updates dynamically
-        current_mode = self.get_parameter('sim_mode').value
-        if current_mode != self.last_mode and current_mode in self.modes:
-            self.get_logger().info(f"Transitioning mode: {self.last_mode} -> {current_mode}")
-            self.last_mode = current_mode
-            self.time_start = self.get_clock().now().nanoseconds / 1e9
-            self.sim_mode = current_mode
-            
-        t = (self.get_clock().now().nanoseconds / 1e9) - self.time_start
-        
-        func = self.modes.get(self.sim_mode, self.mode_realistic)
-        force, pos = func(t)
-        
-        # Add noise
-        force += random.gauss(0, self.noise_fsr)
-        pos += random.gauss(0, self.noise_servo)
-        
-        # Ensure force >= 0
-        force = max(0.0, force)
-        
-        # Publish
-        msg_f = Float32()
-        msg_f.data = float(force)
-        self.force_pub.publish(msg_f)
-        
-        msg_p = JointState()
-        msg_p.header.stamp = self.get_clock().now().to_msg()
-        msg_p.name = ['gripper_joint']
-        msg_p.position = [float(pos)]
-        self.pos_pub.publish(msg_p)
+        # Internal state
+        self.start_time = time.time()
+        self.t = 0.0
+        self.shoulder_pos = 0.0
+        self.elbow_pos = 0.0
+        self.wrist_pos = 0.0
+        self.gripper_pos = 0.0
+        self.fsr_force = 0.0
+        self.grip_state = "OPEN"
 
-    def mode_ramp(self, t):
-        t_mod = t % 7.0
-        if t_mod < 5.0:
-            f = (t_mod / 5.0) * self.force_max
+        self.create_timer(1.0 / rate, self.timer_callback)
+
+        self.get_logger().info("fake_sensor_publisher started")
+        self.get_logger().info(f"Mode: {self.sim_mode}")
+
+    def timer_callback(self):
+        self.t = time.time() - self.start_time
+        self.sim_mode = self.get_parameter("sim_mode").get_parameter_value().string_value
+
+        if self.sim_mode == "step":
+            self.run_step_mode()
+        elif self.sim_mode == "ramp":
+            self.run_ramp_mode()
+        elif self.sim_mode == "noise":
+            self.run_noise_mode()
+        elif self.sim_mode == "overforce":
+            self.run_overforce_mode()
+        elif self.sim_mode == "realistic":
+            self.run_realistic_mode()
         else:
-            f = self.force_max - ((t_mod - 5.0) / 2.0) * self.force_max
-        pos = (f / 5.0) * 1.57
-        return f, pos
+            self.run_step_mode()
 
-    def mode_step(self, t):
-        t_mod = t % 8.0
-        if t_mod < 2.0: return 0.0, 0.0
-        elif t_mod < 4.0: return 1.0, 0.3
-        elif t_mod < 6.0: return 3.0, 0.9
-        else: return 0.0, 0.0
+        self.publish_fsr()
+        self.publish_servo()
+        self.publish_joint_states()
+        self.publish_hw_status()
+        self.publish_grip_state()
 
-    def mode_noise(self, t):
-        return 2.0, 1.0
+    def run_step_mode(self):
+        cycle = self.t % 8.0
+        self.shoulder_pos = 0.3
+        self.elbow_pos = 0.5
+        self.wrist_pos = -0.1
 
-    def mode_overforce(self, t):
-        t_mod = t % 10.0
-        if t_mod < 8.0:
-            return (t_mod / 8.0) * 12.0, 1.57
-        return 0.0, 0.0
+        if cycle < 2.0:
+            self.fsr_force = 0.0
+            self.gripper_pos = 0.0
+            self.grip_state = "OPEN"
+        elif cycle < 4.0:
+            self.fsr_force = 1.0
+            self.gripper_pos = 0.5
+            self.grip_state = "CONTACT"
+        elif cycle < 6.0:
+            self.fsr_force = 3.0
+            self.gripper_pos = 1.2
+            self.grip_state = "GRASPING"
+        else:
+            self.fsr_force = 0.0
+            self.gripper_pos = 0.0
+            self.grip_state = "OPEN"
 
-    def mode_realistic(self, t):
-        t_mod = t % self.cycle_dur
-        if t_mod < 1.0: return 0.0, 0.0
-        elif t_mod < 2.0: return (t_mod - 1.0) * 0.5, (t_mod - 1.0) * 0.5
-        elif t_mod < 5.0: return 2.0, 0.8
-        elif t_mod < 6.0: return 2.0 * (1.0 - (t_mod - 5.0)), 0.8 * (1.0 - (t_mod - 5.0))
-        else: return 0.0, 0.0
+    def run_ramp_mode(self):
+        cycle = self.t % 8.0
+        self.shoulder_pos = 0.4 * math.sin(self.t * 0.3)
+        self.elbow_pos = 0.3 * math.sin(self.t * 0.2 + 1.0)
+        self.wrist_pos = 0.2 * math.sin(self.t * 0.4 + 0.5)
+
+        if cycle < 5.0:
+            self.fsr_force = (cycle / 5.0) * 5.0
+        else:
+            self.fsr_force = max(0.0, 5.0 - ((cycle - 5.0) / 3.0) * 5.0)
+
+        self.gripper_pos = (self.fsr_force / 5.0) * 1.5708
+        self.grip_state = self.get_grip_state()
+
+    def run_noise_mode(self):
+        self.shoulder_pos = 0.3 + random.gauss(0, 0.02)
+        self.elbow_pos = 0.5 + random.gauss(0, 0.02)
+        self.wrist_pos = -0.1 + random.gauss(0, 0.01)
+
+        self.fsr_force = 2.0 + random.gauss(0, 0.3)
+        self.fsr_force = max(0.0, self.fsr_force)
+        self.gripper_pos = 1.0 + random.gauss(0, 0.05)
+        self.gripper_pos = max(0.0, min(1.5708, self.gripper_pos))
+        self.grip_state = self.get_grip_state()
+
+    def run_overforce_mode(self):
+        self.shoulder_pos = 0.3
+        self.elbow_pos = 0.5
+        self.wrist_pos = -0.1
+
+        self.fsr_force = min(12.0, self.t * 1.5)
+        self.gripper_pos = min(1.5708, (self.fsr_force / 10.0) * 1.5708)
+
+        if self.fsr_force > 10.0:
+            self.grip_state = "EMERGENCY"
+        else:
+            self.grip_state = self.get_grip_state()
+
+    def run_realistic_mode(self):
+        cycle = self.t % 10.0
+
+        if cycle < 2.0:
+            self.shoulder_pos = 0.0
+            self.elbow_pos = 0.0
+            self.wrist_pos = 0.0
+            self.fsr_force = 0.0
+            self.gripper_pos = 0.0
+            self.grip_state = "OPEN"
+        elif cycle < 4.0:
+            p = (cycle - 2.0) / 2.0
+            self.shoulder_pos = 0.3 * p
+            self.elbow_pos = 0.8 * p
+            self.wrist_pos = -0.2 * p
+            self.fsr_force = 0.0
+            self.gripper_pos = 0.0
+            self.grip_state = "OPEN"
+        elif cycle < 5.0:
+            p = cycle - 4.0
+            self.shoulder_pos = 0.3
+            self.elbow_pos = 0.8
+            self.wrist_pos = -0.2
+            self.fsr_force = 0.5 * p
+            self.gripper_pos = 0.3 * p
+            self.grip_state = "CONTACT"
+        elif cycle < 7.0:
+            self.shoulder_pos = 0.3
+            self.elbow_pos = 0.8
+            self.wrist_pos = -0.2
+            self.fsr_force = 2.5 + random.gauss(0, 0.1)
+            self.gripper_pos = 1.2
+            self.grip_state = "GRASPING"
+        elif cycle < 9.0:
+            p = (cycle - 7.0) / 2.0
+            self.shoulder_pos = 0.3 + 0.3 * p
+            self.elbow_pos = 0.8 - 0.3 * p
+            self.wrist_pos = -0.2 + 0.1 * p
+            self.fsr_force = 2.5
+            self.gripper_pos = 1.2
+            self.grip_state = "GRASPING"
+        else:
+            self.shoulder_pos = 0.6
+            self.elbow_pos = 0.5
+            self.wrist_pos = -0.1
+            self.fsr_force = 0.0
+            self.gripper_pos = 0.0
+            self.grip_state = "OPEN"
+
+    def get_grip_state(self):
+        if self.fsr_force < 0.1:
+            return "OPEN"
+        if self.fsr_force < 2.0:
+            return "CONTACT"
+        if self.fsr_force > 10.0:
+            return "EMERGENCY"
+        return "GRASPING"
+
+    def publish_fsr(self):
+        msg = Float32()
+        msg.data = float(max(0.0, self.fsr_force))
+        self.fsr_pub.publish(msg)
+
+    def publish_servo(self):
+        msg = JointState()
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.name = ["finger_left_joint"]
+        msg.position = [float(self.gripper_pos)]
+        msg.velocity = [0.0]
+        msg.effort = [0.0]
+        self.servo_pub.publish(msg)
+
+    def publish_joint_states(self):
+        msg = JointState()
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.name = ["shoulder_joint", "elbow_joint", "wrist_joint", "finger_left_joint"]
+        msg.position = [
+            float(self.shoulder_pos),
+            float(self.elbow_pos),
+            float(self.wrist_pos),
+            float(self.gripper_pos),
+        ]
+        msg.velocity = [0.0, 0.0, 0.0, 0.0]
+        msg.effort = [0.0, 0.0, 0.0, 0.0]
+        self.joint_pub.publish(msg)
+
+    def publish_hw_status(self):
+        msg = String()
+        msg.data = "SIMULATION"
+        self.hw_pub.publish(msg)
+
+    def publish_grip_state(self):
+        msg = String()
+        msg.data = self.grip_state
+        self.state_pub.publish(msg)
+
 
 def main(args=None):
     rclpy.init(args=args)
@@ -124,10 +243,11 @@ def main(args=None):
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
-        pass
+        node.get_logger().info("Shutting down fake sensor publisher")
     finally:
         node.destroy_node()
         rclpy.shutdown()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

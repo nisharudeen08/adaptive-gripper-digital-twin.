@@ -182,20 +182,20 @@
       <mass value="0.05"/>
       <inertia ixx="0.000001" ixy="0.0" ixz="0.0" iyy="0.000002" iyz="0.0" izz="0.000002"/>
     </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.065 0.011 0.011"/>
-      </geometry>
-      <material name="Orange"/>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.065 0.011 0.011"/>
-      </geometry>
-    </collision>
-  </link>
+  <visual>
+    <origin xyz="0.0325 0 0" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.065 0.011 0.011"/>
+    </geometry>
+    <material name="Orange"/>
+  </visual>
+  <collision>
+    <origin xyz="0.0325 0 0" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.065 0.011 0.011"/>
+    </geometry>
+  </collision>
+</link>
 
   <!-- ===== FINGER RIGHT LINK ===== -->
   <link name="finger_right_link">
@@ -204,19 +204,19 @@
       <mass value="0.05"/>
       <inertia ixx="0.000001" ixy="0.0" ixz="0.0" iyy="0.000002" iyz="0.0" izz="0.000002"/>
     </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.065 0.011 0.011"/>
-      </geometry>
-      <material name="Orange"/>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.065 0.011 0.011"/>
-      </geometry>
-    </collision>
+  <visual>
+    <origin xyz="0.0325 0 0" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.065 0.011 0.011"/>
+    </geometry>
+    <material name="Orange"/>
+  </visual>
+  <collision>
+    <origin xyz="0.0325 0 0" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.065 0.011 0.011"/>
+    </geometry>
+  </collision>
   </link>
 
   <!-- ===== JOINTS ===== -->
@@ -228,13 +228,13 @@
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
 
-  <!-- Base to Shoulder: Revolute Z axis (yaw), 0.04 m height -->
+  <!-- Base to Shoulder: Revolute Z axis (yaw), constrained to realistic sweep -->
   <joint name="shoulder_joint" type="revolute">
     <parent link="base_link"/>
     <child link="shoulder_link"/>
     <origin xyz="0 0 0.04" rpy="0 0 0"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-1.5708" upper="1.5708" effort="5.0" velocity="1.5"/>
+    <limit lower="-1.0472" upper="1.0472" effort="5.0" velocity="1.2"/>
     <dynamics damping="0.2" friction="0.08"/>
   </joint>
 
@@ -245,13 +245,13 @@
     <origin xyz="0 0 0.06" rpy="0 0 0"/>
   </joint>
 
-  <!-- Upper Arm to Elbow: Revolute Y axis (pitch), 0.18 m along Z -->
+  <!-- Upper Arm to Elbow: Revolute Y axis (pitch), forward-bend range only -->
   <joint name="elbow_joint" type="revolute">
     <parent link="upper_arm_link"/>
     <child link="elbow_link"/>
     <origin xyz="0 0 0.18" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.5708" upper="1.5708" effort="4.0" velocity="1.5"/>
+    <limit lower="0.0" upper="1.5708" effort="4.0" velocity="1.2"/>
     <dynamics damping="0.18" friction="0.06"/>
   </joint>
 
@@ -262,13 +262,13 @@
     <origin xyz="0 0 0.05" rpy="0 0 0"/>
   </joint>
 
-  <!-- Forearm to Wrist: Revolute Y axis (pitch), 0.14 m along Z -->
+  <!-- Forearm to Wrist: Revolute Z axis (roll only), limited rotation -->
   <joint name="wrist_joint" type="revolute">
     <parent link="forearm_link"/>
     <child link="wrist_link"/>
     <origin xyz="0 0 0.14" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
-    <limit lower="-1.5708" upper="1.5708" effort="3.0" velocity="2.0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.0472" upper="1.0472" effort="3.0" velocity="1.5"/>
     <dynamics damping="0.12" friction="0.04"/>
   </joint>
 
@@ -279,13 +279,13 @@
     <origin xyz="0.06 0 0" rpy="0 0 0"/>
   </joint>
 
-  <!-- Gripper Base to Finger Left: Revolute Z axis, 0.04 m X, 0.015 m Y offset -->
+  <!-- Gripper Base to Finger Left: limited close/open range -->
   <joint name="finger_left_joint" type="revolute">
     <parent link="gripper_base_link"/>
     <child link="finger_left_link"/>
     <origin xyz="0.04 0.015 0" rpy="0 0 0"/>
     <axis xyz="0 0 1"/>
-    <limit lower="0.0" upper="1.5708" effort="2.0" velocity="2.0"/>
+    <limit lower="0.0" upper="1.2217" effort="2.0" velocity="1.5"/>
     <dynamics damping="0.08" friction="0.03"/>
   </joint>
 
@@ -296,7 +296,6 @@
     <origin xyz="0.04 -0.015 0" rpy="0 0 0"/>
     <axis xyz="0 0 -1"/>
     <limit lower="-1.5708" upper="0.0" effort="2.0" velocity="2.0"/>
-    <mimic joint="finger_left_joint" multiplier="1.0" offset="0.0"/>
     <dynamics damping="0.08" friction="0.03"/>
   </joint>
 
@@ -306,30 +305,45 @@
       <plugin>gazebo_ros2_control/GazeboSystem</plugin>
     </hardware>
 
+    <!-- ARM JOINTS - all 3 commandable -->
     <joint name="shoulder_joint">
-      <command_interface name="position"/>
+      <command_interface name="position">
+        <param name="min">-1.0472</param>
+        <param name="max">1.0472</param>
+      </command_interface>
       <state_interface name="position"/>
       <state_interface name="velocity"/>
     </joint>
 
     <joint name="elbow_joint">
-      <command_interface name="position"/>
+      <command_interface name="position">
+        <param name="min">0.0</param>
+        <param name="max">1.5708</param>
+      </command_interface>
       <state_interface name="position"/>
       <state_interface name="velocity"/>
     </joint>
 
     <joint name="wrist_joint">
-      <command_interface name="position"/>
+      <command_interface name="position">
+        <param name="min">-1.0472</param>
+        <param name="max">1.0472</param>
+      </command_interface>
       <state_interface name="position"/>
       <state_interface name="velocity"/>
     </joint>
 
+    <!-- GRIPPER - left finger commandable only -->
     <joint name="finger_left_joint">
-      <command_interface name="position"/>
+      <command_interface name="position">
+        <param name="min">0.0</param>
+        <param name="max">1.2217</param>
+      </command_interface>
       <state_interface name="position"/>
       <state_interface name="velocity"/>
     </joint>
 
+    <!-- Right finger state only for now -->
     <joint name="finger_right_joint">
       <state_interface name="position"/>
       <state_interface name="velocity"/>

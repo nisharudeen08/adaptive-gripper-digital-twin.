@@ -21,7 +21,7 @@ class AdaptiveGripController(Node):
         self.declare_parameter('max_grip_pos', 1.57)
         self.declare_parameter('min_grip_pos', 0.0)
         self.declare_parameter('control_rate_hz', 50.0)
-        self.declare_parameter('joint_names', ['gripper_joint'])
+        self.declare_parameter('joint_names', ['finger_left_joint'])
         
         # State vars
         self.fsr_force = 0.0
@@ -39,7 +39,7 @@ class AdaptiveGripController(Node):
         self.create_subscription(JointState, '/gripper/servo/position', self.servo_cb, qos_profile_sensor_data)
         
         # Pubs
-        self.traj_pub = self.create_publisher(JointTrajectory, '/arm_controller/joint_trajectory', 10)
+        self.traj_pub = self.create_publisher(JointTrajectory, '/gripper_controller/joint_trajectory', 10)
         self.state_pub = self.create_publisher(String, '/gripper/grip_state', 10)
         self.debug_pub = self.create_publisher(Float32MultiArray, '/gripper/control/debug', 10)
         
@@ -86,7 +86,7 @@ class AdaptiveGripController(Node):
         if new_state != self.grip_state:
             self.get_logger().info(f"State transition: {self.grip_state} -> {new_state}")
             if new_state == "EMERGENCY":
-                self.get_logger().error("🔴 CRITICAL: Emergency stop triggered! Force > 10N")
+                self.get_logger().error("CRITICAL: Emergency stop triggered! Force > 10N")
             self.reset_pid()
             self.grip_state = new_state
             
@@ -128,7 +128,7 @@ class AdaptiveGripController(Node):
                     float(cmd_pos - self.servo_pos), float(self.servo_pos)]
         self.debug_pub.publish(dbg)
         
-        # Traj pub
+        # Trajectory command (Option 1: left finger only)
         traj = JointTrajectory()
         traj.header.stamp = self.get_clock().now().to_msg()
         traj.joint_names = joint_names
